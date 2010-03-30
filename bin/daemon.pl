@@ -182,7 +182,7 @@ if ( not $DEBUGFLAG ) {
 unlockPIDFile( $fileHandle );
 
 #BEGIN handler
-my $handler = new perfsonar_PS::LSCacheDaemon::LSCacheHandler();
+my $handler = new perfSONAR_PS::LSCacheDaemon::LSCacheHandler();
 $handler->init( \%conf );
 while(1){
     $handler->handle();

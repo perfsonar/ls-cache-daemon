@@ -1,4 +1,4 @@
-package perfsonar_PS::LSCacheDaemon::LSCacheHandler;
+package perfSONAR_PS::LSCacheDaemon::LSCacheHandler;
 
 use strict;
 use warnings;
@@ -96,7 +96,7 @@ sub handle {
         }
         
         #if no URLs then don't change anything and return
-        if (@{$self->{INDEX_URLS}} == 0) {
+        if ((!$self->{INDEX_URLS}) || @{$self->{INDEX_URLS}} == 0) {
             $self->{LOGGER}->error("No URLs in list of indexes to contact.");
             $self->{NEXT_UPDATE} = time + $self->{CONF}->{'update_interval'};
             $self->{LOGGER}->debug( "next update: " . $self->{NEXT_UPDATE} . "\n" );
