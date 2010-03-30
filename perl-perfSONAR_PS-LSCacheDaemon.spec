@@ -20,7 +20,6 @@ BuildArch:      noarch
 # XXX Add your perl requirements here. e.g.
 Requires:       perl
 Requires        perl(Archive::Tar)
-Requires        perl(Cwd)
 Requires: 		perl(Config::General)
 Requires: 		perl(English)
 Requires: 		perl(Exporter)

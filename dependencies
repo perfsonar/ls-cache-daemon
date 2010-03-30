@@ -1,6 +1,5 @@
 Archive::Tar
 Config::General
-Cwd
 Data::Dumper
 Data::UUID
 Digest::MD5

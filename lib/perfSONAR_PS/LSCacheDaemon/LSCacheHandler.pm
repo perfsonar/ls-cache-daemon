@@ -22,7 +22,6 @@ our $VERSION = 3.1;
 
 use Archive::Tar;
 use Carp;
-use Cwd qw/getcwd/;
 use File::Copy qw/move/;
 use File::Copy::Recursive qw/dirmove/;
 use File::Path qw/make_path remove_tree/;
@@ -33,7 +32,7 @@ use Net::Ping;
 use URI::URL;
 use perfSONAR_PS::Utils::ParameterValidation;
 
-use fields 'CONF', 'LOGGER', 'HINTS', 'INDEX_URLS', 'HTTP_ETAG', 'HTTP_LAST_MODIFIED', 'NEXT_UPDATE', 'CWD', 'LAST_URL';
+use fields 'CONF', 'LOGGER', 'HINTS', 'INDEX_URLS', 'HTTP_ETAG', 'HTTP_LAST_MODIFIED', 'NEXT_UPDATE', 'LAST_URL';
 
 =head2 new()
 
@@ -48,7 +47,6 @@ sub new {
     my $self = fields::new( $class );
 
     $self->{LOGGER} = get_logger( $class );
-    $self->{CWD} = getcwd;
     
     return $self;
 }
@@ -81,6 +79,7 @@ sub handle {
     my ( $self ) = @_;
     
     if(time >= $self->{NEXT_UPDATE}){
+        $self->{LOGGER}->info(perfSONAR_PS::Utils::NetLogger::format( "org.perfSONAR.LSCacheDaemon.LSCacheHandler.handle.start"));
         #get hints file
         my $hints_response = $self->cond_get( 
             url => $self->{CONF}->{"hints_file"},
@@ -97,9 +96,14 @@ sub handle {
         
         #if no URLs then don't change anything and return
         if ((!$self->{INDEX_URLS}) || @{$self->{INDEX_URLS}} == 0) {
-            $self->{LOGGER}->error("No URLs in list of indexes to contact.");
             $self->{NEXT_UPDATE} = time + $self->{CONF}->{'update_interval'};
-            $self->{LOGGER}->debug( "next update: " . $self->{NEXT_UPDATE} . "\n" );
+            $self->{LOGGER}->error(perfSONAR_PS::Utils::NetLogger::format( 
+                "org.perfSONAR.LSCacheDaemon.LSCacheHandler.handle.end",
+                {
+                    status => -1, 
+                    msg => "No URLs obtained from hints file", 
+                    next_update => $self->{NEXT_UPDATE} 
+                }));
             return;
         }
         
@@ -107,7 +111,6 @@ sub handle {
         foreach my $index_url(@{$self->{INDEX_URLS}}){
             my $http_etag = '';
             my $http_last_mod = '';
-            $self->{LOGGER}->debug("calling $index_url\n");
             # check that the URL we're calling is the same as 
             # the one we have the etag and last-mod for
             if($self->{LAST_URL} eq $index_url){
@@ -131,22 +134,27 @@ sub handle {
                     close TAR;
                     
                     #unpack to temp location
-                    if(getcwd ne $self->{CWD}){ 
-                        chdir $self->{CWD} or croak("Cannot chdir to " . $self->{CWD});
-                    }
                     remove_tree '/tmp/pscache'; #don't throw error if doesn't exist
                     make_path '/tmp/pscache' or croak("Cannot make directory /tmp/pscache");
-                    chdir '/tmp/pscache' or croak("Cannot chdir to /tmp/pscache"); #tar program doesn't allow for prefix
-                    my $tar = Archive::Tar->new;
-                    $tar->read('/tmp/cache.tgz', '', { extract => 1 }) or croak("Cannot extract file /tmp/cache.tgz");
-                    chdir $self->{CWD} or croak("Cannot chdir to " . $self->{CWD});
+                    my $tar = Archive::Tar->iter('/tmp/cache.tgz');
+                    while(my $file_from_tar = $tar->()){
+                        $file_from_tar->extract('/tmp/pscache/'.$file_from_tar->name) or croak("Unable to extract file " . $file_from_tar->name);
+                    }
                     
                     #copy tmp to perm dir
                     dirmove('/tmp/pscache', $self->{CONF}->{"cache_dir"}) or croak("Unable to move file to " . $self->{CONF}->{"cache_dir"});
                 };
                 if($@){
-                    $self->{LOGGER}->error($@);
-                    last;
+                    $self->{NEXT_UPDATE} = time + $self->{CONF}->{'update_interval'};
+                    chomp $@;
+                    $self->{LOGGER}->error(perfSONAR_PS::Utils::NetLogger::format( 
+                        "org.perfSONAR.LSCacheDaemon.LSCacheHandler.handle.end",
+                        {
+                            status => -1,
+                            msg => $@,
+                            next_update => $self->{NEXT_UPDATE}
+                        }));
+                    return;
                 }
                 
                 #archive the downloaded tarball
@@ -160,7 +168,9 @@ sub handle {
             last;
         }
         $self->{NEXT_UPDATE} = time + $self->{CONF}->{'update_interval'};
-        $self->{LOGGER}->debug( "next update: " . $self->{NEXT_UPDATE} . "\n" );
+        $self->{LOGGER}->info(perfSONAR_PS::Utils::NetLogger::format( 
+            "org.perfSONAR.LSCacheDaemon.LSCacheHandler.handle.end",
+            { next_update => $self->{NEXT_UPDATE} }));
     }
 }
 
@@ -174,7 +184,10 @@ sub cond_get {
     my ( $self, @args ) = @_;
     my $params = validateParams( @args, { url => 1, etag => 0, lastmod => 0 } );
     my $result = {};
-    
+    $self->{LOGGER}->info(perfSONAR_PS::Utils::NetLogger::format(
+        "org.perfSONAR.LSCacheDaemon.LSCacheHandler.cond_get.start", 
+        {url => $params->{url}}));
+            
     my $ua = new LWP::UserAgent();
     $ua->agent("LSCacheClient-v1.0");
     
@@ -197,7 +210,12 @@ sub cond_get {
     }else{
         $result->{STATUS} = "ERROR";
     }
-    $self->{LOGGER}->debug( "HTTP RESPONSE: " . $http_response->code . "\n");
+    $self->{LOGGER}->info(perfSONAR_PS::Utils::NetLogger::format(
+        "org.perfSONAR.LSCacheDaemon.LSCacheHandler.cond_get.end", 
+        { 
+            http_response_code => $http_response->code,
+            url => $params->{url}
+        }));
     
     return $result;
 }
@@ -233,7 +251,8 @@ Archive the file and rotate existing copies of same file
 sub archive_file {
     my ( $self, @args ) = @_;
     my $params = validateParams( @args, { orig_file => 1, new_local_name => 1 } );
-    
+    $self->{LOGGER}->info(perfSONAR_PS::Utils::NetLogger::format("org.perfSONAR.LSCacheDaemon.LSCacheHandler.archive_file.start"));
+        
     #check if we want to archive
     if($self->{CONF}->{'archive_dir'} eq '' || $self->{CONF}->{'archive_count'} <= 0){
         return;
@@ -264,14 +283,22 @@ sub archive_file {
         move($params->{orig_file}, $filename) or croak "Unable to create file $filename";
     };
     if($@){
-        $self->{LOGGER}->warn("Unable to archive file: " . $@);
+        chomp $@;
+        $self->{LOGGER}->error(perfSONAR_PS::Utils::NetLogger::format(
+            "org.perfSONAR.LSCacheDaemon.LSCacheHandler.archive_file.end", 
+            {
+                status => -1, 
+                msg => "Unable to archive file: " . $@
+            }));
+    }else{
+        $self->{LOGGER}->info(perfSONAR_PS::Utils::NetLogger::format("org.perfSONAR.LSCacheDaemon.LSCacheHandler.archive_file.end"));
     }
 }
 __END__
 
 =head1 SEE ALSO
 
-L<Archive::Tar>, L<Carp>, L<Cwd>, L<File::Copy::Recursive>, 
+L<Archive::Tar>, L<Carp>, L<File::Copy::Recursive>, 
 L<File::Path>, L<HTTP::Request>, L<Log::Log4perl>, 
 L<LWP::UserAgent>, L<Net::Ping>, L<URI::URL>,
 L<perfSONAR_PS::Utils::ParameterValidation>

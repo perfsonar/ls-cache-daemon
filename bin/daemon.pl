@@ -18,6 +18,7 @@ use lib "$Bin/../lib";
 
 use perfSONAR_PS::Common;
 use perfSONAR_PS::Utils::Daemon qw/daemonize setids lockPIDFile unlockPIDFile/;
+use perfSONAR_PS::Utils::NetLogger;
 use perfSONAR_PS::LSCacheDaemon::LSCacheHandler;
 
 use Getopt::Long;
@@ -151,12 +152,21 @@ else {
 
 
 #BEGIN read configuration
+$logger->info( perfSONAR_PS::Utils::NetLogger::format( "org.perfSONAR.LSCacheDaemon.daemon.init.start") );
 if ( not $conf{"hints_file"} ) {
-    $logger->error( "You must specify a hints file with the hint_file property" );
+    my $log_msg = perfSONAR_PS::Utils::NetLogger::format( "org.perfSONAR.LSCacheDaemon.daemon.init.end", 
+        { status => -1, 
+          msg => "You must specify a hints file with the hint_file property"
+        });
+    $logger->error( $log_msg );
     exit(-1);
 }
 if ( not $conf{"cache_dir"} ) {
-    $logger->error( "You must specify the cache_dir property which indicates where cache files should be stored" );
+    my $log_msg = perfSONAR_PS::Utils::NetLogger::format( "org.perfSONAR.LSCacheDaemon.daemon.init.end", 
+        { status => -1, 
+          msg => "You must specify the cache_dir property which indicates where cache files should be stored"
+        });
+    $logger->error( $log_msg );
     exit(-1);
 }
 if ( not $conf{"archive_dir"} ) {
@@ -166,7 +176,11 @@ if ( not $conf{"archive_count"} ) {
     $conf{"archive_count"} = 10;
 }
 if (ref $conf{"update_interval"}) {
-    $logger->error( "You must specify the update_interval property that indicates how often to update the cache");
+    my $log_msg = perfSONAR_PS::Utils::NetLogger::format( "org.perfSONAR.LSCacheDaemon.daemon.init.end", 
+        { status => -1, 
+          msg => "You must specify the update_interval property that indicates how often to update the cache"
+        });
+    $logger->error( $log_msg );
     exit(-1);
 }
 #END read configuration
@@ -174,7 +188,11 @@ if (ref $conf{"update_interval"}) {
 if ( not $DEBUGFLAG ) {
     ( $status, $res ) = daemonize();
     if ( $status != 0 ) {
-        $logger->error( "Couldn't daemonize: " . $res );
+        my $log_msg = perfSONAR_PS::Utils::NetLogger::format( "org.perfSONAR.LSCacheDaemon.daemon.init.end", 
+        { status => -1, 
+          msg => "Couldn't daemonize: " . $res 
+        });
+        $logger->error( $log_msg );
         exit( -1 );
     }
 }
@@ -184,6 +202,8 @@ unlockPIDFile( $fileHandle );
 #BEGIN handler
 my $handler = new perfSONAR_PS::LSCacheDaemon::LSCacheHandler();
 $handler->init( \%conf );
+$logger->info( perfSONAR_PS::Utils::NetLogger::format( "org.perfSONAR.LSCacheDaemon.daemon.init.end") );
+
 while(1){
     $handler->handle();
 }

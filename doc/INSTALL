@@ -52,7 +52,6 @@ the following Perl libraries, libraries, and external tools to function:
     - Archive::Tar
     - Carp
     - Config::General
-    - Cwd
     - Digest::MD5
     - English
     - Exporter
