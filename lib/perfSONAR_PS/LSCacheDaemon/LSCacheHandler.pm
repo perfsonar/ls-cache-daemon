@@ -77,7 +77,13 @@ and expand tarball
 =cut
 sub handle {
     my ( $self ) = @_;
-    
+
+    my $curr_time = time;
+    if ($curr_time < $self->{NEXT_UPDATE}) {
+        # Sleep until it's time to run again.
+        sleep($self->{NEXT_UPDATE} - $curr_time);
+    }
+
     if(time >= $self->{NEXT_UPDATE}){
         $self->{LOGGER}->info(perfSONAR_PS::Utils::NetLogger::format( "org.perfSONAR.LSCacheDaemon.LSCacheHandler.handle.start"));
         #get hints file
