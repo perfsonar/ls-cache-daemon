@@ -24,7 +24,7 @@ use Archive::Tar;
 use Carp;
 use File::Copy qw/move/;
 use File::Copy::Recursive qw/dirmove/;
-use File::Path qw/make_path remove_tree/;
+use File::Path qw/mkpath rmtree/;
 use HTTP::Request;
 use Log::Log4perl qw/get_logger/;
 use LWP::UserAgent;
@@ -140,8 +140,8 @@ sub handle {
                     close TAR;
                     
                     #unpack to temp location
-                    remove_tree '/tmp/pscache'; #don't throw error if doesn't exist
-                    make_path '/tmp/pscache' or croak("Cannot make directory /tmp/pscache");
+                    rmtree '/tmp/pscache'; #don't throw error if doesn't exist
+                    mkpath '/tmp/pscache' or croak("Cannot make directory /tmp/pscache");
                     my $tar = Archive::Tar->iter('/tmp/cache.tgz');
                     while(my $file_from_tar = $tar->()){
                         $file_from_tar->extract('/tmp/pscache/'.$file_from_tar->name) or croak("Unable to extract file " . $file_from_tar->name);
@@ -180,7 +180,7 @@ sub handle {
     }
 }
 
-=head2 init()
+=head2 cond_get()
 
 Perform conditional GET to given URL with optional Etag and 
 Last-Modified headers.
