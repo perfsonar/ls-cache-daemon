@@ -236,7 +236,7 @@ sub find_closest_urls {
     my $params = validateParams( @args, { urls => 1 } );
     
     my %duration_map = ();
-    my $ping = Net::Ping->new();
+    my $ping = Net::Ping->new("external");
     $ping->hires();
     for my $url_string( @{ $params->{urls} }){
        my $url = new URI::URL $url_string;
@@ -244,7 +244,7 @@ sub find_closest_urls {
        $duration_map{$url_string} = $duration if $duration;
     }
     
-    my @sorted_urls = sort{ $duration_map{$a} cmp $duration_map{$b} } keys %duration_map;
+    my @sorted_urls = sort{ $duration_map{$a} <=> $duration_map{$b} } keys %duration_map;
     
     return \@sorted_urls;
 }
