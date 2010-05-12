@@ -19,7 +19,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 # XXX Add your perl requirements here. e.g.
 Requires:       perl
-Requires        perl(Archive::Tar)
+Requires:		perl(Archive::Tar)
 Requires: 		perl(Config::General)
 Requires: 		perl(English)
 Requires: 		perl(Exporter)
@@ -85,12 +85,15 @@ rm -rf $RPM_BUILD_ROOT
 %config %{install_base}/etc/*
 %attr(0755,perfsonar,perfsonar) %{install_base}/bin/*
 %attr(0755,perfsonar,perfsonar) %{install_base}/scripts/*
-%{install_base}/lib/*
 %attr(0755,perfsonar,perfsonar) /etc/init.d/*
+%{install_base}/*
 
 %post
 mkdir -p /var/log/perfsonar
 chown perfsonar:perfsonar /var/log/perfsonar
+
+mkdir -p /var/lib/perfsonar/ls_cache
+chown perfsonar:perfsonar /var/lib/perfsonar/ls_cache
 
 /sbin/chkconfig --add %{init_script_1}
 #/sbin/chkconfig --add %{init_script_2}
@@ -112,5 +115,5 @@ if [ "$1" != "0" ]; then
 fi
 
 %changelog
-* Thu March 30 2010 andy@es.net 3.1-5
+* Thu Mar 30 2010 andy@es.net 3.1-5
 - Initial spec file created
