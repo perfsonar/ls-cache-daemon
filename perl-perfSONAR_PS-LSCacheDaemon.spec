@@ -50,6 +50,10 @@ Requires: 		perl(URI::URL)
 Requires: 		perl(XML::LibXML)
 Requires: 		perl(base)
 
+Requires: 		coreutils
+Requires: 		chkconfig
+Requires: 		shadow-utils
+
 %description
 The perfSONAR-PS LS Cache Daemon creates a cache of all services registered in
 the LS by downloading a compressed file and expanding it to a configured directory.
