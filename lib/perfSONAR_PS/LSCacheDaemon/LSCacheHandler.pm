@@ -142,11 +142,18 @@ sub handle {
                     #unpack to temp location
                     rmtree '/tmp/pscache'; #don't throw error if doesn't exist
                     mkpath '/tmp/pscache' or croak("Cannot make directory /tmp/pscache");
-                    my $tar = Archive::Tar->iter('/tmp/cache.tgz');
-                    while(my $file_from_tar = $tar->()){
-                        $file_from_tar->extract('/tmp/pscache/'.$file_from_tar->name) or croak("Unable to extract file " . $file_from_tar->name);
+                    my $tar = Archive::Tar->new('/tmp/cache.tgz',1);
+                    $tar->setcwd( '/tmp/pscache' );
+                    my @tar_files = $tar->list_files() or croak("Unable to read files: ".$tar->error);
+                    my @files_to_extract = ();
+                    foreach my $file (@tar_files) {
+                        next if ($file eq '.' or $file eq '..');
+
+                        push @files_to_extract, $file;
                     }
-                    
+
+                    $tar->extract(@files_to_extract) or croak("Unable to extract files: ".$tar->error);
+
                     #copy tmp to perm dir
                     dirmove('/tmp/pscache', $self->{CONF}->{"cache_dir"}) or croak("Unable to move file to " . $self->{CONF}->{"cache_dir"});
                 };

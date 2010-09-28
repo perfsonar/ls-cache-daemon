@@ -49,6 +49,7 @@ do
 
 	if $PERFSONAR ; then
 	    echo "$0 $ARG: LS Cache Daemon started"
+            touch /var/lock/subsys/ls_cache_daemon
 	else
 	    echo "$0 $ARG: LS Cache Daemon could not be started"
 	    ERROR=3
@@ -61,6 +62,7 @@ do
 	fi
 	if kill $PID ; then
 	    echo "$0 $ARG: LS Cache Daemon stopped"
+            rm /var/lock/subsys/ls_cache_daemon
 	else
 	    echo "$0 $ARG: LS Cache Daemon could not be stopped"
 	    ERROR=4

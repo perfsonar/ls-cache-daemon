@@ -4,7 +4,7 @@
 %define init_script_1 ls_cache_daemon
 # %define init_script_2 ls_cache_daemon
 
-%define relnum 5
+%define relnum 7
 %define disttag pSPS
 
 Name:           perl-perfSONAR_PS-LSCacheDaemon
@@ -119,5 +119,9 @@ if [ "$1" != "0" ]; then
 fi
 
 %changelog
+* Thu Sep 27 2010 aaron@internet2.edu 3.1-7
+- Bugfix for extracting tarballs with '.' and '..' in them
+* Thu Sep 07 2010 aaron@internet2.edu 3.1-6
+- Get cache daemon to work with an older version of Archive::Tar
 * Thu Mar 30 2010 andy@es.net 3.1-5
 - Initial spec file created
