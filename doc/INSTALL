@@ -90,7 +90,7 @@ Installation (YUM):
 Installation using YUM lets the package manager do the work of finding and
 installing the dependencies.  The following command is all that is needed:
 
-  yum install perl-perfSONAR_PS-LSCacheDaemon-3.1-5.pSPS.noarch.rpm
+  yum install perl-perfSONAR_PS-LSCacheDaemon-3.2-1.pSPS.noarch.rpm
 
 There may be several prerequisites to install depending on the age of your
 system.  To ensure that all are found, please be sure to install one of the
@@ -105,7 +105,7 @@ Like YUM, installation with apt-rpm also manages the task of finding dependencie
 following commands will install is needed:
 
   apt-get update
-  apt-get install perl-perfSONAR_PS-LSCacheDaemon-3.1-5.pSPS.noarch.rpm
+  apt-get install perl-perfSONAR_PS-LSCacheDaemon-3.2-1.pSPS.noarch.rpm
 
 There may be several prerequisites to install depending on the age of your
 system.  To ensure that all are found, please be sure to install one of the
@@ -120,18 +120,18 @@ If you do not wish to install the Internet2 Repository package, you may simply
 find the appropriate RPM for your architecture without using a package manger.
 For example if you are on an "i386" architecture:
 
-  wget -c http://software.internet2.edu/rpms/i386/main/RPMS/perl-perfSONAR_PS-LSCacheDaemon-3.1-5.pSPS.noarch.rpm
+  wget -c http://software.internet2.edu/rpms/i386/main/RPMS/perl-perfSONAR_PS-LSCacheDaemon-3.2-1.pSPS.noarch.rpm
   
 To install without package manager help:
 
-  rpm -ivh perl-perfSONAR_PS-LSCacheDaemon-3.1-5.pSPS.noarch.rpm
+  rpm -ivh perl-perfSONAR_PS-LSCacheDaemon-3.2-1.pSPS.noarch.rpm
   
 Note that this RPM may need other packages to install correctly: if these
 packages are not found on your system, you will need to manually download and
 install them before proceeding.  An alternate method is to still use a package
 manager in a "local" way (YUM only):
 
-  yum localinstall perl-perfSONAR_PS-LSRCacheDaemon-3.1-5.pSPS.noarch.rpm
+  yum localinstall perl-perfSONAR_PS-LSRCacheDaemon-3.2-1.pSPS.noarch.rpm
   
 This will search the available repositories for any necessary packages.
 
@@ -144,9 +144,9 @@ All RPM packages are also available in "source" packages that may be installed
 and used in the typical Unix/Linux fashion.  There are helper scripts included
 that may be used to download the necessary prerequisite software packages:
 
-  wget -c http://software.internet2.edu/source/perfSONAR-PS/perfSONAR_PS-LSCacheDaemon-3.1.5.tar.gz
-  tar -zxfv perfSONAR_PS-LSCacheDaemon-3.1.5.tar.gz
-  cd perfSONAR_PS-LSCacheDaemon-3.1.5
+  wget -c http://software.internet2.edu/source/perfSONAR-PS/perfSONAR_PS-LSCacheDaemon-3.2.1.tar.gz
+  tar -zxfv perfSONAR_PS-LSCacheDaemon-3.2.1.tar.gz
+  cd perfSONAR_PS-LSCacheDaemon-3.2.1
   make install
   cd scripts
   ./install_dependencies.sh
@@ -175,7 +175,7 @@ retrieves all software and another that retrieves only selective services.
 
 To download the entire release:
 
-  svn checkout http://anonsvn.internet2.edu/svn/perfSONAR-PS/tags/RELEASE_3.1 perfSONAR-PS
+  svn checkout http://anonsvn.internet2.edu/svn/perfSONAR-PS/tags/RELEASE_3.2 perfSONAR-PS
   
 The instructions are the same here as for the Tar package.  Note that
 installation may require pre-requisite software.  Read the preceding sections
@@ -189,8 +189,8 @@ If a single service is all that is required, a similar method is used but also
 note that the service must have access to a "Shared" directory that contains
 perfSONAR-PS libraries:
 
-  svn checkout http://anonsvn.internet2.edu/svn/perfSONAR-PS/tags/RELEASE_3.1/perfSONAR_PS-LSCacheDaemon/
-  svn checkout http://anonsvn.internet2.edu/svn/perfSONAR-PS/tags/RELEASE_3.1/Shared
+  svn checkout http://anonsvn.internet2.edu/svn/perfSONAR-PS/tags/RELEASE_3.2/perfSONAR_PS-LSCacheDaemon/
+  svn checkout http://anonsvn.internet2.edu/svn/perfSONAR-PS/tags/RELEASE_3.2/Shared
 
 The instructions are also the same as above:
 

@@ -18,7 +18,7 @@ meaning it only downloads the files if they have been updated.
 
 =cut
 
-our $VERSION = 3.1;
+our $VERSION = 3.2;
 
 use Archive::Tar;
 use Carp;
@@ -316,9 +316,9 @@ L<File::Path>, L<HTTP::Request>, L<Log::Log4perl>,
 L<LWP::UserAgent>, L<Net::Ping>, L<URI::URL>,
 L<perfSONAR_PS::Utils::ParameterValidation>
 
-To join the 'perfSONAR Users' mailing list, please visit:
+To join the 'perfSONAR-PS Users' mailing list, please visit:
 
-  https://mail.internet2.edu/wws/info/perfsonar-user
+  https://lists.internet2.edu/sympa/info/perfsonar-ps-users
 
 The perfSONAR-PS subversion repository is located at:
 
