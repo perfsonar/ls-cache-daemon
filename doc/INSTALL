@@ -22,7 +22,7 @@ these performance tools to install a simple RPM package that gives the
 necessary configuration information for the YUM and APT-RPM tools.  The RPM can
 be found here:
 
-  wget -c http://software.internet2.edu/Internet2-repo-0.1-2.noarch.rpm
+  wget -c http://software.internet2.edu/Internet2-repo-0.2-1.noarch.rpm
   
 To install this RPM first import the signing key:
 
@@ -30,7 +30,7 @@ To install this RPM first import the signing key:
 
 Then install the RPM:
 
-  rpm -ivh Internet2-repo-0.1-2.noarch.rpm
+  rpm -ivh Internet2-repo-0.2-1.noarch.rpm
 
 It is also recommended that an additional repository be installed for hard to 
 find prerequisite software that may not be available in traditional repositories
