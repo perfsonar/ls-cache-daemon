@@ -175,6 +175,9 @@ if ( not $conf{"archive_dir"} ) {
 if ( not $conf{"archive_count"} ) {
     $conf{"archive_count"} = 10;
 }
+if ( not $conf{"cache_freshness"} ) {
+    $conf{"cache_freshness"} = 7200; #two hours
+}
 if (ref $conf{"update_interval"}) {
     my $log_msg = perfSONAR_PS::Utils::NetLogger::format( "org.perfSONAR.LSCacheDaemon.daemon.init.end", 
         { status => -1, 

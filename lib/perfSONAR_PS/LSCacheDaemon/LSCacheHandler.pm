@@ -30,9 +30,13 @@ use Log::Log4perl qw/get_logger/;
 use LWP::UserAgent;
 use Net::Ping;
 use URI::URL;
+use Date::Manip qw(UnixDate);
 use perfSONAR_PS::Utils::ParameterValidation;
 
-use fields 'CONF', 'LOGGER', 'HINTS', 'INDEX_URLS', 'HTTP_ETAG', 'HTTP_LAST_MODIFIED', 'NEXT_UPDATE', 'LAST_URL';
+use constant HEARTBEAT_FILE => "ls_cache_heartbeat.txt";
+use fields 'CONF', 'LOGGER', 'HINTS', 'INDEX_URLS', 'HTTP_ETAG', 
+           'HTTP_LAST_MODIFIED', 'NEXT_UPDATE', 'LAST_URL', 
+           'HEARTBEAT_HTTP_ETAG', 'HEARTBEAT_HTTP_LAST_MODIFIED';
 
 =head2 new()
 
@@ -66,6 +70,8 @@ sub init {
     $self->{INDEX_URLS} = ();
     $self->{HTTP_ETAG} = '';
     $self->{HTTP_LAST_MODIFIED} = '';
+    $self->{HEARTBEAT_HTTP_ETAG} = '';
+    $self->{HEARTBEAT_HTTP_LAST_MODIFIED} = '';
     $self->{LAST_URL} = '';
 }
 
@@ -91,7 +97,6 @@ sub handle {
             url => $self->{CONF}->{"hints_file"},
             etag =>$self->{HINTS}->{HTTP_ETAG},
             lastmod => $self->{HINTS}->{HTTP_LAST_MODIFIED});
-            
         if($hints_response->{STATUS} eq 'NEW'){
             my @hints_urls = split "\n", $hints_response->{CONTENT};
             $self->{HINTS}->{HTTP_ETAG} = $hints_response->{HTTP_ETAG};
@@ -112,9 +117,49 @@ sub handle {
                 }));
             return;
         }
-        
-        #do conditional get
+    
+        #get the data
+        my $log_msg = "";
         foreach my $index_url(@{$self->{INDEX_URLS}}){
+        
+            #get heartbeat file
+            my $heartbeat_url = $index_url;
+            $heartbeat_url =~ s/(http.*\/).*/$1/;
+            $heartbeat_url .= HEARTBEAT_FILE;
+            $self->{LOGGER}->info("heartbeat_url=$heartbeat_url");
+            #get tarball file        
+            my $heartbeat_http_etag = '';
+            my $heartbeat_http_last_mod = '';
+            
+            # check that the URL we're calling is the same as 
+            # the one we have the etag and last-mod for
+            if($self->{LAST_URL} =~ /^$index_url/){
+                $heartbeat_http_etag = $self->{HEARTBEAT_HTTP_ETAG};
+                $heartbeat_http_last_mod = $self->{HEARTBEAT_HTTP_LAST_MODIFIED};
+            }
+            my $heartbeat_response = $self->cond_get( 
+                url => $heartbeat_url,
+                etag => $heartbeat_http_etag,
+                lastmod => $heartbeat_http_last_mod);
+            
+            if($heartbeat_response->{STATUS} eq 'NEW'){
+                $self->{HEARTBEAT_HTTP_ETAG} = $heartbeat_response->{HTTP_ETAG};
+                $self->{HEARTBEAT_HTTP_LAST_MODIFIED} = $heartbeat_response->{HTTP_LAST_MODIFIED}; 
+            }elsif($heartbeat_response->{STATUS} eq 'ERROR'){
+                $log_msg .= "Cannot determine freshness of cache at $index_url.";
+                next;
+            }
+            
+            #if new or not modified
+            my $min_last_mod = time - $self->{CONF}->{'cache_freshness'};
+            my $hb_last_mod = UnixDate($self->{HEARTBEAT_HTTP_LAST_MODIFIED}, "%s");
+            if($min_last_mod > $hb_last_mod){
+                #cache is stale so try next URL
+                $log_msg .= "Cache was not fresh at $index_url.";
+                next;
+            }
+                
+            #get tar file        
             my $http_etag = '';
             my $http_last_mod = '';
             # check that the URL we're calling is the same as 
@@ -180,10 +225,11 @@ sub handle {
             }
             last;
         }
+        
         $self->{NEXT_UPDATE} = time + $self->{CONF}->{'update_interval'};
         $self->{LOGGER}->info(perfSONAR_PS::Utils::NetLogger::format( 
             "org.perfSONAR.LSCacheDaemon.LSCacheHandler.handle.end",
-            { next_update => $self->{NEXT_UPDATE} }));
+            { next_update => $self->{NEXT_UPDATE}, msg => $log_msg }));
     }
 }
 
@@ -241,18 +287,21 @@ Sort URLs by shortest ping response time
 sub find_closest_urls {
     my ( $self, @args ) = @_;
     my $params = validateParams( @args, { urls => 1 } );
-    
     my %duration_map = ();
     my $ping = Net::Ping->new("external");
     $ping->hires();
     for my $url_string( @{ $params->{urls} }){
        my $url = new URI::URL $url_string;
-       my ( $ret, $duration, $ip ) = $ping->ping($url->host());
+       my ( $ret, $duration, $ip );
+       eval{ 
+            ( $ret, $duration, $ip ) = $ping->ping($url->host());
+       };
+       if($@){  
+            $self->{LOGGER}->info("Error running ping: $@");
+       }
        $duration_map{$url_string} = $duration if $duration;
     }
-    
     my @sorted_urls = sort{ $duration_map{$a} <=> $duration_map{$b} } keys %duration_map;
-    
     return \@sorted_urls;
 }
 
