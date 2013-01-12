@@ -118,9 +118,14 @@ fi
 %{install_base}/*
 
 %changelog
+* Fri Jan 11 2013 asides@es.net 3.3-1
+- 3.3 beta release
+
 * Thu Sep 27 2010 aaron@internet2.edu 3.1-7
 - Bugfix for extracting tarballs with '.' and '..' in them
+
 * Thu Sep 07 2010 aaron@internet2.edu 3.1-6
 - Get cache daemon to work with an older version of Archive::Tar
+
 * Thu Mar 30 2010 andy@es.net 3.1-5
 - Initial spec file created
