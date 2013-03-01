@@ -4,7 +4,7 @@
 %define init_script_1 ls_cache_daemon
 # %define init_script_2 ls_cache_daemon
 
-%define relnum 1
+%define relnum 2 
 %define disttag pSPS
 
 Name:			perl-perfSONAR_PS-LSCacheDaemon
