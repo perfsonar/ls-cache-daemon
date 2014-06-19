@@ -4,11 +4,11 @@
 %define init_script_1 ls_cache_daemon
 # %define init_script_2 ls_cache_daemon
 
-%define relnum 2 
+%define relnum 1 
 %define disttag pSPS
 
 Name:			perl-perfSONAR_PS-LSCacheDaemon
-Version:		3.3
+Version:		3.4
 Release:		%{relnum}.%{disttag}
 Summary:		perfSONAR_PS Lookup Service Cache Daemon
 License:		Distributable, see LICENSE
@@ -118,6 +118,9 @@ fi
 %{install_base}/*
 
 %changelog
+* Thu Jun 19 2014 andy@es.net 3.4-1
+- Updated links to new source repo
+
 * Fri Jan 11 2013 asides@es.net 3.3-1
 - 3.3 beta release
 

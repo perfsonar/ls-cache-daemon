@@ -1,7 +1,7 @@
 PACKAGE=perfSONAR_PS-LSCacheDaemon
 ROOTPATH=/opt/perfsonar_ps/ls_cache_daemon
-VERSION=3.3
-RELEASE=2
+VERSION=3.4
+RELEASE=1
 
 default:
 	@echo No need to build the package. Just run \"make install\"
