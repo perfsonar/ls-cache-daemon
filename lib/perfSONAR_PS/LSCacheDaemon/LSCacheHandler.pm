@@ -248,6 +248,7 @@ sub cond_get {
         {url => $params->{url}}));
             
     my $ua = new LWP::UserAgent();
+    $ua->env_proxy();
     $ua->agent("LSCacheClient-v1.0");
     
     my $http_request = HTTP::Request->new( GET => $params->{url} );
