@@ -1,6 +1,6 @@
 PACKAGE=perfSONAR_PS-LSCacheDaemon
 ROOTPATH=/opt/perfsonar_ps/ls_cache_daemon
-VERSION=3.4
+VERSION=3.4.2
 RELEASE=1
 
 default:

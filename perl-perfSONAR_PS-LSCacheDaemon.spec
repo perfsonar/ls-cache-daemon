@@ -8,7 +8,7 @@
 %define disttag pSPS
 
 Name:			perl-perfSONAR_PS-LSCacheDaemon
-Version:		3.4
+Version:		3.4.2
 Release:		%{relnum}.%{disttag}
 Summary:		perfSONAR_PS Lookup Service Cache Daemon
 License:		Distributable, see LICENSE
