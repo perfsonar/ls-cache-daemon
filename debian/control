@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 9.0.0), dh-exec, dh-systemd
 Standards-Version: 3.9.6
 Homepage: http://www.perfsonar.net
 Vcs-Git: https://github.com/perfsonar/ls-cache-daemon.git
-Vcs-Browser: https://github.com/perfsonar/ls-cache-daemon/tree/debian/wheezy
+Vcs-Browser: https://github.com/perfsonar/ls-cache-daemon/tree/debian/jessie
 
 Package: perfsonar-lscachedaemon
 Architecture: all
