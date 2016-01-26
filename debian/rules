@@ -19,7 +19,7 @@ include /usr/share/dpkg/default.mk
 
 # main packaging script based on dh7 syntax
 %:
-	dh $@
+	dh $@ --with systemd
 
 # Standard make install not used
 override_dh_auto_install:

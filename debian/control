@@ -2,7 +2,7 @@ Source: perfsonar-lscachedaemon
 Section: misc
 Priority: extra
 Maintainer: Valentin Vidic <Valentin.Vidic@CARNet.hr>
-Build-Depends: debhelper (>= 9.0.0), dh-exec
+Build-Depends: debhelper (>= 9.0.0), dh-exec, dh-systemd
 Standards-Version: 3.9.6
 Homepage: http://www.perfsonar.net
 Vcs-Git: https://github.com/perfsonar/ls-cache-daemon.git
