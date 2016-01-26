@@ -1,0 +1,5 @@
+perfsonar-lscachedaemon (3.4.2-1) UNRELEASED; urgency=medium
+
+  * Initial Debian packaging.
+
+ -- Valentin Vidic <Valentin.Vidic@CARNet.hr>  Tue, 26 Jan 2016 08:50:25 +0100

@@ -1,0 +1,81 @@
+--- a/bin/daemon.pl
++++ b/bin/daemon.pl
+@@ -5,7 +5,7 @@
+ 
+ =head1 NAME
+ 
+-ls_cache_daemon.pl - Downloads cache of perfSONAR services from a web server
++lscachedaemon.pl - Downloads cache of perfSONAR services from a web server
+ 
+ =head1 DESCRIPTION
+ 
+@@ -26,7 +26,7 @@
+ use Log::Log4perl qw/:easy/;
+ 
+ # set the process name
+-$0 = "ls_cache_daemon.pl";
++$0 = "lscachedaemon.pl";
+ 
+ my @child_pids = ();
+ 
+@@ -67,7 +67,7 @@
+ }
+ 
+ if ( not $PIDFILE ) {
+-    $PIDFILE = "/var/run/ls_cache_daemon.pid";
++    $PIDFILE = "/var/run/lscachedaemon.pid";
+ }
+ 
+ ( $status, $res ) = lockPIDFile( $PIDFILE );
+--- a/etc/ls_cache_daemon-logger.conf
++++ b/etc/ls_cache_daemon-logger.conf
+@@ -9,7 +9,7 @@
+ 
+ # Uncomment the following lines to log messages to the specified file.
+ log4perl.appender.A1=Log::Dispatch::FileRotate
+-log4perl.appender.A1.filename=/var/log/perfsonar/ls_cache_daemon.log
++log4perl.appender.A1.filename=/var/log/perfsonar/lscachedaemon.log
+ log4perl.appender.A1.max=7
+ log4perl.appender.A1.DatePattern=yyyy-MM-dd
+ log4perl.appender.A1.permissions=sub{ 0644; }
+--- a/doc/README
++++ b/doc/README
+@@ -18,7 +18,7 @@
+ 
+ There are several files that may be adjusted manually to configure this service:
+ 
+-  - etc/ls_cache_daemon.conf: 
++  - /etc/perfsonar/lscachedaemon.conf: 
+   
+     The following are required configuration options:
+    
+@@ -33,7 +33,7 @@
+       user                - The user to run this daemon as
+       group               - The group to run this daemon as
+ 
+-  - etc/ls_cache_daemon-logger.conf:
++  - /etc/perfsonar/lscachedaemon-logger.conf:
+ 
+     Contains information related to logging, there are three modes:
+     
+@@ -49,15 +49,15 @@
+ 
+ The service comes with init scripts that may be used to start and stop it:
+ 
+-If installed via RPM, the service can be started or stopped with:
++If installed via package, the service can be started or stopped with:
+ 
+-  /etc/init.d/ls_cache_daemon start
+-  /etc/init.d/ls_cache_daemon stop
+-  /etc/init.d/ls_cache_daemon restart
++  /etc/init.d/perfsonar-lscachedaemon start
++  /etc/init.d/perfsonar-lscachedaemon stop
++  /etc/init.d/perfsonar-lscachedaemon restart
+ 
+ The service can also be run in a manual fashion (useful for debugging):
+ 
+-  perl bin/daemon.pl --verbose --conf=etc/ls_cache_daemon.conf
++  perl /usr/lib/perfsonar/bin/daemon.pl --verbose --conf=/etc/perfsonar/lscachedaemon.conf
+   
+ Maintenance:
+ ------------
