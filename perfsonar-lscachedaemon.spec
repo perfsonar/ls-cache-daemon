@@ -88,22 +88,20 @@ chown perfsonar:perfsonar /var/log/perfsonar
 mkdir -p /var/lib/perfsonar/lscache
 chown perfsonar:perfsonar /var/lib/perfsonar/lscache
 
-#Update config file. For 3.5.1 will symlink to old location. In 3.6 we will move it.
-if [ -L "%{config_base}/lscachedaemon.conf" ]; then
-    echo "WARN: /opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon.conf will be moved to %{config_base}/lscachedaemon.conf in 3.6. Update configuration management software as soon as possible. "
-elif [ -e "/opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon.conf" ]; then
-    mv %{config_base}/lscachedaemon.conf %{config_base}/lscachedaemon.conf.default
-    ln -s /opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon.conf %{config_base}/lscachedaemon.conf
-    sed -i "s:/var/lib/perfsonar/ls_cache_daemon:/var/lib/perfsonar/lscachedaemon:g" /opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon.conf
-fi
 
-#Update logging config file. For 3.5.1 will symlink to old location. In 3.6 we will move it.
-if [ -L "%{config_base}/lscachedaemon-logger.conf" ]; then
-    echo "WARN: /opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon-logger.conf will be moved to %{config_base}/lscachedaemon-logger.conf in 3.6. Update configuration management software as soon as possible. "
-elif [ -e "/opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon-logger.conf" ]; then
-    mv %{config_base}/lscachedaemon-logger.conf %{config_base}/lscachedaemon-logger.conf.default
-    ln -s /opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon-logger.conf %{config_base}/lscachedaemon-logger.conf
-    sed -i "s:ls_cache_daemon.log:lscachedaemon.log:g" /opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon-logger.conf
+if [ "$1" = "1" ]; then
+    # clean install, check for pre 3.5.1 files
+    if [ -e "/opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon.conf" ]; then
+        mv %{config_base}/lscachedaemon.conf %{config_base}/lscachedaemon.conf.default
+        mv /opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon.conf %{config_base}/lscachedaemon.conf
+        sed -i "s:/var/lib/perfsonar/ls_cache_daemon:/var/lib/perfsonar/lscachedaemon:g" %{config_base}/lscachedaemon.conf
+    fi
+    
+    if [ -e "/opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon-logger.conf" ]; then
+        mv %{config_base}/lscachedaemon-logger.conf %{config_base}/lscachedaemon-logger.conf.default
+        mv /opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon-logger.conf %{config_base}/lscachedaemon-logger.conf
+        sed -i "s:ls_cache_daemon.log:lscachedaemon.log:g" %{config_base}/lscachedaemon-logger.conf
+    fi
 fi
 
 /sbin/chkconfig --add %{init_script_1}
