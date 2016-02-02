@@ -6,19 +6,19 @@
 # description: perfSONAR Lookup Service Cache Daemon
 #
 
-PREFIX=/opt/perfsonar_ps/ls_cache_daemon
+PREFIX=/usr/lib/perfsonar
 BINDIR=${PREFIX}/bin
-CONFDIR=${PREFIX}/etc
+CONFDIR=/etc/perfsonar
 RUNDIR=/var/run
 
-CONFFILE=${CONFDIR}/ls_cache_daemon.conf
-LOGGERFILE=${CONFDIR}/ls_cache_daemon-logger.conf
-PIDFILE=${RUNDIR}/ls_cache_daemon.pid
+CONFFILE=${CONFDIR}/lscachedaemon.conf
+LOGGERFILE=${CONFDIR}/lscachedaemon-logger.conf
+PIDFILE=${RUNDIR}/lscachedaemon.pid
 
 USER=perfsonar
 GROUP=perfsonar
 
-PERFSONAR="${BINDIR}/daemon.pl --config=${CONFFILE} --pidfile=${PIDFILE} --logger=${LOGGERFILE} --user=${USER} --group=${GROUP}"
+PERFSONAR="${BINDIR}/lscachedaemon.pl --config=${CONFFILE} --pidfile=${PIDFILE} --logger=${LOGGERFILE} --user=${USER} --group=${GROUP}"
 
 ERROR=0
 ARGV="$@"
@@ -49,7 +49,7 @@ do
 
 	if $PERFSONAR ; then
 	    echo "$0 $ARG: LS Cache Daemon started"
-            touch /var/lock/subsys/ls_cache_daemon
+            touch /var/lock/subsys/perfsonar-lscachedaemon
 	else
 	    echo "$0 $ARG: LS Cache Daemon could not be started"
 	    ERROR=3
@@ -62,7 +62,7 @@ do
 	fi
 	if kill $PID ; then
 	    echo "$0 $ARG: LS Cache Daemon stopped"
-            rm /var/lock/subsys/ls_cache_daemon
+            rm /var/lock/subsys/perfsonar-lscachedaemon
 	else
 	    echo "$0 $ARG: LS Cache Daemon could not be stopped"
 	    ERROR=4

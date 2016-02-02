@@ -26,7 +26,7 @@ use Config::General;
 use Log::Log4perl qw/:easy/;
 
 # set the process name
-$0 = "ls_cache_daemon.pl";
+$0 = "lscachedaemon.pl";
 
 my @child_pids = ();
 
@@ -67,7 +67,7 @@ if ( not $PIDFILE ) {
 }
 
 if ( not $PIDFILE ) {
-    $PIDFILE = "/var/run/ls_cache_daemon.pid";
+    $PIDFILE = "/var/run/lscachedaemon.pid";
 }
 
 ( $status, $res ) = lockPIDFile( $PIDFILE );
