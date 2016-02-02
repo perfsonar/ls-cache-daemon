@@ -94,7 +94,7 @@ if [ "$1" = "1" ]; then
     if [ -e "/opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon.conf" ]; then
         mv %{config_base}/lscachedaemon.conf %{config_base}/lscachedaemon.conf.default
         mv /opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon.conf %{config_base}/lscachedaemon.conf
-        sed -i "s:/var/lib/perfsonar/ls_cache_daemon:/var/lib/perfsonar/lscachedaemon:g" %{config_base}/lscachedaemon.conf
+        sed -i "s:/var/lib/perfsonar/ls_cache:/var/lib/perfsonar/lscachedaemon:g" %{config_base}/lscachedaemon.conf
     fi
     
     if [ -e "/opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon-logger.conf" ]; then
