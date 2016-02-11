@@ -21,8 +21,8 @@ set -e
 case "$1" in
     configure)
         # DB directory
-        mkdir -p /var/lib/perfsonar/ls_cache
-        chown perfsonar:perfsonar /var/lib/perfsonar/ls_cache
+        mkdir -p /var/lib/perfsonar/lscache
+        chown perfsonar:perfsonar /var/lib/perfsonar/lscache
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

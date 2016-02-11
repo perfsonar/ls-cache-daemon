@@ -1,5 +1,3 @@
-#!/usr/bin/dh-exec
-bin/daemon.pl => usr/lib/perfsonar/bin/lscachedaemon.pl
-etc/ls_cache_daemon.conf => etc/perfsonar/lscachedaemon.conf
-etc/ls_cache_daemon-logger.conf => etc/perfsonar/lscachedaemon-logger.conf
+bin/lscachedaemon.pl usr/lib/perfsonar/bin/
+etc/* etc/perfsonar/
 lib/perfSONAR_PS/LSCacheDaemon/LSCacheHandler.pm usr/lib/perfsonar/lib/perfSONAR_PS/LSCacheDaemon/
