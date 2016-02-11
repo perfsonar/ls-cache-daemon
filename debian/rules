@@ -27,6 +27,3 @@ override_dh_auto_install:
 override_dh_install:
 	dh_install
 	chmod +x debian/perfsonar-lscachedaemon/usr/lib/perfsonar/bin/lscachedaemon.pl
-
-override_dh_installchangelogs:
-	dh_installchangelogs -XChanges

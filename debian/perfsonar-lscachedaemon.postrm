@@ -22,7 +22,7 @@ set -e
 case "$1" in
     purge)
         # DB directory
-        rm -rf /var/lib/perfsonar/ls_cache
+        rm -rf /var/lib/perfsonar/lscache
 
         # Log files
         rm -rf /var/log/perfsonar/lscachedaemon.log*
