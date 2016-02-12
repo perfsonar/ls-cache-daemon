@@ -30,19 +30,19 @@ make dist
 To start the service run:
 
 ```bash
-/etc/init.d/ls_cache_daemon start
+/etc/init.d/perfsonar-lscachedaemon start
 ```
 
 To stop the service run:
 
 ```bash
-/etc/init.d/ls_cache_daemon stop
+/etc/init.d/perfsonar-lscachedaemon stop
 ```
 
 To restart the service run:
 
 ```bash
-/etc/init.d/ls_cache_daemon restart
+/etc/init.d/perfsonar-lscachedaemon restart
 ```
 
 ##Using the *shared* Submodule

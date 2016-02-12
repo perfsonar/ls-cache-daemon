@@ -1,2 +1,4 @@
-# Ignore quilt patch cache
-.pc
+# Ignore mac hidden file
+.DS_Store
+# Ignore quilt cache directory
+.pc/
