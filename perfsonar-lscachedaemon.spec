@@ -4,7 +4,7 @@
 # init scripts must be located in the 'scripts' directory
 %define init_script_1 perfsonar-lscachedaemon
 
-%define relnum 0.0.a1
+%define relnum 0.1.rc1
 
 Name:			perfsonar-lscachedaemon
 Version:		3.5.1
