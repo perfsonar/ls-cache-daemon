@@ -1,11 +1,11 @@
-perfsonar-lscachedaemon (3.5.1~2.rc1-1~bpo70+1) UNRELEASED; urgency=medium
+perfsonar-lscachedaemon (3.5.1-1~bpo70+1) perfsonar-wheezy-release; urgency=medium
 
   * Backport to Wheezy.
 
- -- Valentin Vidic <Valentin.Vidic@CARNet.hr>  Mon, 15 Feb 2016 19:31:25 +0000
+ -- Antoine Delvaux <adelvaux@man.poznan.pl>  Fri, 04 Mar 2016 10:46:37 +0100
 
-perfsonar-lscachedaemon (3.5.1~2.rc1-1) UNRELEASED; urgency=medium
+perfsonar-lscachedaemon (3.5.1-1) perfsonar-jessie-release; urgency=medium
 
   * Initial Debian packaging.
 
- -- Valentin Vidic <Valentin.Vidic@CARNet.hr>  Mon, 15 Feb 2016 19:28:03 +0000
+ -- Valentin Vidic <Valentin.Vidic@CARNet.hr>  Fri, 04 Mar 2016 10:44:52 +0100
