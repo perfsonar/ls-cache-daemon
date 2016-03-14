@@ -12,7 +12,8 @@ Package: perfsonar-lscachedaemon
 Architecture: all
 Depends: ${misc:Depends}, ${perl:Depends}, libconfig-general-perl, 
  liblog-log4perl-perl, libfile-copy-recursive-perl, libwww-perl,
- libdate-manip-perl, liburi-perl, libperfsonar-perl, perfsonar-common
+ libdate-manip-perl, liburi-perl, liblog-dispatch-filerotate-perl,
+ libperfsonar-perl, perfsonar-common
 Description: perfSONAR Lookup Service Cache Daemon
  The perfSONAR-PS LS Cache Daemon creates a cache of all services registered in
  the LS by downloading a compressed file and expanding it to a configured
