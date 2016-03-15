@@ -1,3 +1,9 @@
+perfsonar-lscachedaemon (3.5.1-2) perfsonar-jessie-release; urgency=medium
+
+  * Add liblog-dispatch-filerotate-perl dependency
+
+ -- Valentin Vidic <Valentin.Vidic@CARNet.hr>  Tue, 15 Mar 2016 15:18:22 +0100
+
 perfsonar-lscachedaemon (3.5.1-1) perfsonar-jessie-release; urgency=medium
 
   * Initial Debian packaging.
