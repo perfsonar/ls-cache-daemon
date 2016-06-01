@@ -5,3 +5,4 @@ etc/lscachedaemon-logger.conf
 etc/lscachedaemon.conf
 lib/perfSONAR_PS/LSCacheDaemon/LSCacheHandler.pm
 scripts/perfsonar-lscachedaemon
+scripts/perfsonar-lscachedaemon.service
