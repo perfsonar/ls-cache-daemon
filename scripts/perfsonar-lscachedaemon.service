@@ -1,0 +1,11 @@
+[Unit]
+Description=perfSONAR Lookup Service Cache Daemon
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/var/run/lscachedaemon.pid
+ExecStart=/usr/lib/perfsonar/bin/lscachedaemon.pl --config=/etc/perfsonar/lscachedaemon.conf --logger=/etc/perfsonar/lscachedaemon-logger.conf --user=perfsonar --group=perfsonar
+
+[Install]
+WantedBy=multi-user.target
