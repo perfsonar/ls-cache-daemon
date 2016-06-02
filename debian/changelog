@@ -1,3 +1,9 @@
+perfsonar-lscachedaemon (3.5.1.1j-2) UNRELEASED; urgency=medium
+
+  * TO BE FILLED IN...
+
+ -- Antoine Delvaux <adelvaux@man.poznan.pl>  Thu, 02 Jun 2016 10:50:08 +0200
+
 perfsonar-lscachedaemon (3.5.1-2) perfsonar-jessie-release; urgency=medium
 
   * Add liblog-dispatch-filerotate-perl dependency
