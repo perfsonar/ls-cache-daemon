@@ -4,10 +4,10 @@
 # init scripts must be located in the 'scripts' directory
 %define init_script_1 perfsonar-lscachedaemon
 
-%define relnum 1
+%define relnum 0.2.rc1
 
 Name:			perfsonar-lscachedaemon
-Version:		3.5.1
+Version:		4.0
 Release:		%{relnum}%{?dist}
 Summary:		perfSONAR Lookup Service Cache Daemon
 License:		Distributable, see LICENSE
@@ -98,6 +98,11 @@ chown perfsonar:perfsonar /var/lib/perfsonar/lscache
 
 %if 0%{?el7}
 %systemd_post %{init_script_1}.service
+if [ "$1" = "1" ]; then
+    #if new install, then enable
+    systemctl enable %{init_script_1}.service
+    systemctl start %{init_script_1}.service
+fi
 %else
 if [ "$1" = "1" ]; then
     # clean install, check for pre 3.5.1 files
