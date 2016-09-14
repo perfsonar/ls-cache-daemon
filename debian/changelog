@@ -1,20 +1,20 @@
-perfsonar-lscachedaemon (3.5.1.1w-1) UNRELEASED; urgency=low
+perfsonar-lscachedaemon (4.0~2.rc1-1~bpo70+1) perfsonar-wheezy-staging; urgency=medium
 
-  * TO BE FILLED IN...
+  * Backport to Wheezy
 
- -- Antoine Delvaux <adelvaux@man.poznan.pl>  Thu, 02 Jun 2016 10:51:27 +0200
+ -- Antoine Delvaux <antoine.delvaux@man.poznan.pl>  Wed, 14 Sep 2016 22:37:14 +0000
 
-perfsonar-lscachedaemon (3.5.1-2~bpo70+1) perfsonar-wheezy-release; urgency=medium
+perfsonar-lscachedaemon (4.0~2.rc1-1) perfsonar-jessie-staging; urgency=medium
+
+  * New upstream version
+
+ -- Antoine Delvaux <antoine.delvaux@man.poznan.pl>  Wed, 14 Sep 2016 22:34:02 +0000
+
+perfsonar-lscachedaemon (3.5.1-2) perfsonar-jessie-release; urgency=medium
 
   * Add liblog-dispatch-filerotate-perl dependency
 
- -- Valentin Vidic <Valentin.Vidic@CARNet.hr>  Tue, 15 Mar 2016 15:19:32 +0100
-
-perfsonar-lscachedaemon (3.5.1-1~bpo70+1) perfsonar-wheezy-release; urgency=medium
-
-  * Backport to Wheezy.
-
- -- Antoine Delvaux <adelvaux@man.poznan.pl>  Fri, 04 Mar 2016 10:46:37 +0100
+ -- Valentin Vidic <Valentin.Vidic@CARNet.hr>  Tue, 15 Mar 2016 15:18:22 +0100
 
 perfsonar-lscachedaemon (3.5.1-1) perfsonar-jessie-release; urgency=medium
 
