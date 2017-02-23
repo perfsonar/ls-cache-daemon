@@ -1,0 +1,5 @@
+#Ignore mac hidden file
+.DS_Store
+
+#ISO directory
+resources/

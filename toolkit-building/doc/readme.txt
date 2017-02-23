@@ -1,0 +1,1 @@
+See http://code.google.com/p/esnet-perfsonar/wiki/CentOS6ToolkitBuilding for more information about building the various toolkit distributions.
