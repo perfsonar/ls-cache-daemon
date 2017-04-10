@@ -1,8 +1,8 @@
-perfsonar-lscachedaemon (4.0~2.rc1-1) perfsonar-jessie-staging; urgency=medium
+perfsonar-lscachedaemon (4.0~2.rc1-2) perfsonar-jessie-staging; urgency=medium
 
   * New upstream version
 
- -- Antoine Delvaux <antoine.delvaux@man.poznan.pl>  Wed, 14 Sep 2016 22:34:02 +0000
+ -- Antoine Delvaux <antoine.delvaux@man.poznan.pl>  Mon, 10 Apr 2017 12:10:14 +0000
 
 perfsonar-lscachedaemon (3.5.1-2) perfsonar-jessie-release; urgency=medium
 
