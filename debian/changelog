@@ -1,14 +1,15 @@
-perfsonar-lscachedaemon (4.0~2.rc1-2~bpo70+1) perfsonar-wheezy-staging; urgency=medium
+perfsonar-lscachedaemon (4.0-1~bpo70+1) perfsonar-wheezy-release; urgency=low
 
   * Backport to Wheezy.
 
- -- Antoine Delvaux <antoine.delvaux@man.poznan.pl>  Mon, 10 Apr 2017 12:12:44 +0000
+ -- Antoine Delvaux <antoine.delvaux@man.poznan.pl>  Thu, 13 Apr 2017 16:39:42 +0000
 
-perfsonar-lscachedaemon (4.0~2.rc1-2) perfsonar-jessie-staging; urgency=medium
+perfsonar-lscachedaemon (4.0-1) perfsonar-jessie-release; urgency=low
 
   * New upstream version
+  * Adding autopkgtests
 
- -- Antoine Delvaux <antoine.delvaux@man.poznan.pl>  Mon, 10 Apr 2017 12:10:14 +0000
+ -- Antoine Delvaux <antoine.delvaux@man.poznan.pl>  Thu, 13 Apr 2017 16:37:27 +0000
 
 perfsonar-lscachedaemon (3.5.1-2) perfsonar-jessie-release; urgency=medium
 
