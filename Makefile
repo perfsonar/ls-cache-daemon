@@ -1,7 +1,7 @@
 PACKAGE=perfsonar-lscachedaemon
 ROOTPATH=/usr/lib/perfsonar
 CONFIGPATH=/etc/perfsonar
-VERSION=4.0
+VERSION=4.0.2
 RELEASE=1
 
 default:
