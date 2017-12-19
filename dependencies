@@ -16,7 +16,6 @@ IO::File
 LWP::UserAgent
 Log::Log4perl
 Net::Ping
-Net::Ping::External
 POSIX
 Params::Validate
 Time::HiRes

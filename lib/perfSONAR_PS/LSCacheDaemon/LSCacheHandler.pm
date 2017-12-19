@@ -289,12 +289,13 @@ sub find_closest_urls {
     my ( $self, @args ) = @_;
     my $params = validateParams( @args, { urls => 1 } );
     my %duration_map = ();
-    my $ping = Net::Ping->new("external");
+    my $ping = Net::Ping->new("tcp");
     $ping->hires();
     for my $url_string( @{ $params->{urls} }){
        my $url = new URI::URL $url_string;
        my ( $ret, $duration, $ip );
        eval{ 
+            $ping->port_number(scalar(getservbyname($url->scheme(), "tcp")));
             ( $ret, $duration, $ip ) = $ping->ping($url->host());
        };
        if($@){  

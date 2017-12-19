@@ -7,7 +7,7 @@
 %define relnum 1 
 
 Name:			perfsonar-lscachedaemon
-Version:		4.0
+Version:		4.0.2
 Release:		%{relnum}%{?dist}
 Summary:		perfSONAR Lookup Service Cache Daemon
 License:		Distributable, see LICENSE
@@ -37,7 +37,6 @@ Requires:		perl(Log::Log4perl)
 Requires:		perl(Log::Dispatch::FileRotate)
 Requires:		perl(Net::DNS)
 Requires:		perl(Net::Ping)
-Requires:		perl(Net::Ping::External)
 Requires:		perl(NetAddr::IP)
 Requires:		perl(POSIX)
 Requires:		perl(Params::Validate)
