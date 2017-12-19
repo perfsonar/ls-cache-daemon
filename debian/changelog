@@ -1,3 +1,9 @@
+perfsonar-lscachedaemon (4.0.2-1) perfsonar-jessie-release; urgency=low
+
+  * New upstream version
+
+ -- Antoine Delvaux <antoine.delvaux@man.poznan.pl>  Tue, 19 Dec 2017 16:14:50 +0000
+
 perfsonar-lscachedaemon (4.0-1) perfsonar-jessie-release; urgency=low
 
   * New upstream version
