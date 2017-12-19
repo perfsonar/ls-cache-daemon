@@ -1,8 +1,14 @@
-perfsonar-lscachedaemon (4.0-1~bpo70+1) perfsonar-wheezy-release; urgency=low
+perfsonar-lscachedaemon (4.0.2-1~bpo70+1) perfsonar-wheezy-release; urgency=low
 
   * Backport to Wheezy.
 
- -- Antoine Delvaux <antoine.delvaux@man.poznan.pl>  Thu, 13 Apr 2017 16:39:42 +0000
+ -- Antoine Delvaux <antoine.delvaux@man.poznan.pl>  Tue, 19 Dec 2017 16:16:13 +0000
+
+perfsonar-lscachedaemon (4.0.2-1) perfsonar-jessie-release; urgency=low
+
+  * New upstream version
+
+ -- Antoine Delvaux <antoine.delvaux@man.poznan.pl>  Tue, 19 Dec 2017 16:14:50 +0000
 
 perfsonar-lscachedaemon (4.0-1) perfsonar-jessie-release; urgency=low
 
