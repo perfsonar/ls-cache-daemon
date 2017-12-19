@@ -7,7 +7,7 @@
 %define relnum 1 
 
 Name:			perfsonar-lscachedaemon
-Version:		4.0
+Version:		4.0.2
 Release:		%{relnum}%{?dist}
 Summary:		perfSONAR Lookup Service Cache Daemon
 License:		Distributable, see LICENSE
