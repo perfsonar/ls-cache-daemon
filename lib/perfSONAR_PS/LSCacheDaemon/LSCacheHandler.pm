@@ -32,7 +32,6 @@ use Net::Ping;
 use URI::URL;
 use Date::Manip qw(UnixDate);
 use perfSONAR_PS::Utils::ParameterValidation;
-use Data::Dumper;
 
 use constant HEARTBEAT_FILE => "ls_cache_heartbeat.txt";
 use fields 'CONF', 'LOGGER', 'HINTS', 'INDEX_URLS', 'HTTP_ETAG', 
@@ -263,7 +262,6 @@ sub cond_get {
     
     my $http_response = $ua->request($http_request);
     if ($http_response->is_success) {
-        warn "Reqest successful!!!!! " . $params->{url};
         $result->{STATUS} = "NEW";
         $result->{HTTP_ETAG} = $http_response->header('ETag');
         $result->{HTTP_LAST_MODIFIED} = $http_response->header('Last-Modified');
@@ -294,7 +292,6 @@ sub find_closest_urls {
     my $ping = Net::Ping->new("tcp");
     $ping->hires();
     for my $url_string( @{ $params->{urls} }){
-        warn "URL_STRING: $url_string";
        my $url = new URI::URL $url_string;
        my ( $ret, $duration, $ip );
        eval{ 
@@ -307,7 +304,6 @@ sub find_closest_urls {
        $duration_map{$url_string} = $duration if $duration;
     }
     my @sorted_urls = sort{ $duration_map{$a} <=> $duration_map{$b} } keys %duration_map;
-warn "CLOSEST_URLS " . Dumper \@sorted_urls;
     return \@sorted_urls;
 }
 

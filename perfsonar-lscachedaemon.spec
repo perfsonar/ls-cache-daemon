@@ -4,7 +4,7 @@
 # init scripts must be located in the 'scripts' directory
 %define init_script_1 perfsonar-lscachedaemon
 
-%define relnum 1
+%define relnum 3
 
 Name:			perfsonar-lscachedaemon
 Version:		4.1
@@ -33,6 +33,7 @@ Requires:		perl(IO::Socket)
 Requires:		perl(IO::Socket::INET)
 Requires:		perl(IO::Socket::INET6)
 Requires:		perl(LWP::UserAgent)
+Requires:		perl(LWP::Protocol::https)
 Requires:		perl(Log::Log4perl)
 Requires:		perl(Log::Dispatch::FileRotate)
 Requires:		perl(Net::DNS)
