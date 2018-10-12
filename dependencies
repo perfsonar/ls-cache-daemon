@@ -14,6 +14,7 @@ Getopt::Long
 HTTP::Request
 IO::File
 LWP::UserAgent
+LWP::Protocol::https
 Log::Log4perl
 Net::Ping
 POSIX
