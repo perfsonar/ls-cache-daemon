@@ -4,10 +4,10 @@
 # init scripts must be located in the 'scripts' directory
 %define init_script_1 perfsonar-lscachedaemon
 
-%define relnum 3
+%define relnum 1
 
 Name:			perfsonar-lscachedaemon
-Version:		4.1
+Version:		4.1.3
 Release:		%{relnum}%{?dist}
 Summary:		perfSONAR Lookup Service Cache Daemon
 License:		ASL 2.0
