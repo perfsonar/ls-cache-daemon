@@ -249,6 +249,7 @@ sub cond_get {
             
     my $ua = new LWP::UserAgent();
     $ua->env_proxy();
+    $ua->max_redirect(5);
     $ua->agent("LSCacheClient-v1.0");
     
     my $http_request = HTTP::Request->new( GET => $params->{url} );
@@ -276,7 +277,6 @@ sub cond_get {
             http_response_code => $http_response->code,
             url => $params->{url}
         }));
-    
     return $result;
 }
 
