@@ -7,7 +7,7 @@
 %define relnum 1
 
 Name:			perfsonar-lscachedaemon
-Version:		4.1
+Version:		4.1.3
 Release:		%{relnum}%{?dist}
 Summary:		perfSONAR Lookup Service Cache Daemon
 License:		ASL 2.0
@@ -33,6 +33,7 @@ Requires:		perl(IO::Socket)
 Requires:		perl(IO::Socket::INET)
 Requires:		perl(IO::Socket::INET6)
 Requires:		perl(LWP::UserAgent)
+Requires:		perl(LWP::Protocol::https)
 Requires:		perl(Log::Log4perl)
 Requires:		perl(Log::Dispatch::FileRotate)
 Requires:		perl(Net::DNS)
