@@ -4,16 +4,17 @@
 # init scripts must be located in the 'scripts' directory
 %define init_script_1 perfsonar-lscachedaemon
 
-%define relnum 1
+%define perfsonar_auto_version 4.1.3
+%define perfsonar_auto_relnum 1
 
 Name:			perfsonar-lscachedaemon
-Version:		4.1.3
-Release:		%{relnum}%{?dist}
+Version:		%{perfsonar_auto_version}
+Release:		%{perfsonar_auto_relnum}%{?dist}
 Summary:		perfSONAR Lookup Service Cache Daemon
 License:		ASL 2.0
 Group:			Development/Libraries
 URL:			http://www.perfsonar.net
-Source0:		perfsonar-lscachedaemon-%{version}.%{relnum}.tar.gz
+Source0:		perfsonar-lscachedaemon-%{version}.%{perfsonar_auto_relnum}.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:		noarch
 Requires:		perl
@@ -69,7 +70,7 @@ directory.
 /usr/sbin/useradd -g perfsonar -r -s /sbin/nologin -c "perfSONAR User" -d /tmp perfsonar 2> /dev/null || :
 
 %prep
-%setup -q -n perfsonar-lscachedaemon-%{version}.%{relnum}
+%setup -q -n perfsonar-lscachedaemon-%{version}.%{perfsonar_auto_relnum}
 
 %build
 
