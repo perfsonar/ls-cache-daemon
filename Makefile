@@ -1,8 +1,10 @@
 PACKAGE=perfsonar-lscachedaemon
 ROOTPATH=/usr/lib/perfsonar
 CONFIGPATH=/etc/perfsonar
-VERSION=4.1.3
-RELEASE=1
+PERFSONAR_AUTO_VERSION=4.1.3
+PERFSONAR_AUTO_RELNUM=1
+VERSION=${PERFSONAR_AUTO_VERSION}
+RELEASE=${PERFSONAR_AUTO_RELNUM}
 
 default:
 	@echo No need to build the package. Just run \"make install\"
