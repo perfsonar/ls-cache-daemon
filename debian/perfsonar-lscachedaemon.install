@@ -1,0 +1,3 @@
+bin/lscachedaemon.pl usr/lib/perfsonar/bin/
+etc/* etc/perfsonar/
+lib/perfSONAR_PS/LSCacheDaemon/LSCacheHandler.pm usr/lib/perfsonar/lib/perfSONAR_PS/LSCacheDaemon/
