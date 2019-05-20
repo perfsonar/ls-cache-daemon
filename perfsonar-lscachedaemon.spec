@@ -66,7 +66,7 @@ the LS by downloading a compressed file and expanding it to a configured
 directory.
 
 %pre
-/usr/sbin/groupadd perfsonar 2> /dev/null || :
+/usr/sbin/groupadd -r perfsonar 2> /dev/null || :
 /usr/sbin/useradd -g perfsonar -r -s /sbin/nologin -c "perfSONAR User" -d /tmp perfsonar 2> /dev/null || :
 
 %prep
