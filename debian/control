@@ -1,10 +1,10 @@
 Source: perfsonar-lscachedaemon
 Section: misc
-Priority: extra
+Priority: optional
 Maintainer: perfSONAR developers <debian@perfsonar.net>
 Uploaders: Antoine Delvaux <antoine.delvaux@man.poznan.pl>,
  Valentin Vidic <Valentin.Vidic@CARNet.hr>
-Build-Depends: debhelper (>= 9.0.0), debhelper (>= 9.20160709) | dh-systemd
+Build-Depends: debhelper (>= 10)
 Standards-Version: 3.9.8
 Homepage: http://www.perfsonar.net
 Vcs-Git: https://github.com/perfsonar/ls-cache-daemon.git
