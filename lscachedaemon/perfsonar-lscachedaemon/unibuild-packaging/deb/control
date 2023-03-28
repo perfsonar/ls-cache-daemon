@@ -2,13 +2,12 @@ Source: perfsonar-lscachedaemon
 Section: misc
 Priority: optional
 Maintainer: perfSONAR developers <debian@perfsonar.net>
-Uploaders: Antoine Delvaux <antoine.delvaux@man.poznan.pl>,
- Valentin Vidic <Valentin.Vidic@CARNet.hr>
+Uploaders: Lætitia Delvaux <adelvaux@man.poznan.pl>
 Build-Depends: debhelper (>= 10)
 Standards-Version: 3.9.8
 Homepage: http://www.perfsonar.net
 Vcs-Git: https://github.com/perfsonar/ls-cache-daemon.git
-Vcs-Browser: https://github.com/perfsonar/ls-cache-daemon/tree/debian/jessie
+Vcs-Browser: https://github.com/perfsonar/ls-cache-daemon/tree/master
 
 Package: perfsonar-lscachedaemon
 Architecture: all
