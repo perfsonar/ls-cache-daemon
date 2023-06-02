@@ -53,12 +53,8 @@ Requires:		shadow-utils
 Requires:		libperfsonar-perl
 Obsoletes:		perl-perfSONAR_PS-LSCacheDaemon
 Provides:		perl-perfSONAR_PS-LSCacheDaemon
-%if 0%{?el7}
 BuildRequires: systemd
 %{?systemd_requires: %systemd_requires}
-%else
-Requires:               chkconfig
-%endif
 
 %description
 The perfSONAR LS Cache Daemon creates a cache of all services registered in
@@ -79,11 +75,7 @@ rm -rf %{buildroot}
 
 make ROOTPATH=%{buildroot}/%{install_base} CONFIGPATH=%{buildroot}/%{config_base} install
 
-%if 0%{?el7}
 install -D -m 0644 scripts/%{init_script_1}.service %{buildroot}/%{_unitdir}/%{init_script_1}.service
-%else
-install -D -m 0755 scripts/%{init_script_1} %{buildroot}/etc/init.d/%{init_script_1}
-%endif
 
 rm -rf %{buildroot}/%{install_base}/scripts/
 
@@ -97,52 +89,18 @@ chown perfsonar:perfsonar /var/log/perfsonar
 mkdir -p /var/lib/perfsonar/lscache
 chown perfsonar:perfsonar /var/lib/perfsonar/lscache
 
-%if 0%{?el7}
 %systemd_post %{init_script_1}.service
 if [ "$1" = "1" ]; then
     #if new install, then enable
     systemctl enable %{init_script_1}.service
     systemctl start %{init_script_1}.service
 fi
-%else
-if [ "$1" = "1" ]; then
-    # clean install, check for pre 3.5.1 files
-    if [ -e "/opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon.conf" ]; then
-        mv %{config_base}/lscachedaemon.conf %{config_base}/lscachedaemon.conf.default
-        mv /opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon.conf %{config_base}/lscachedaemon.conf
-        sed -i "s:/var/lib/perfsonar/ls_cache:/var/lib/perfsonar/lscache:g" %{config_base}/lscachedaemon.conf
-    fi
-    
-    if [ -e "/opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon-logger.conf" ]; then
-        mv %{config_base}/lscachedaemon-logger.conf %{config_base}/lscachedaemon-logger.conf.default
-        mv /opt/perfsonar_ps/ls_cache_daemon/etc/ls_cache_daemon-logger.conf %{config_base}/lscachedaemon-logger.conf
-        sed -i "s:ls_cache_daemon.log:lscachedaemon.log:g" %{config_base}/lscachedaemon-logger.conf
-    fi
-fi
-
-/sbin/chkconfig --add %{init_script_1}
-%endif
 
 %preun
-%if 0%{?el7}
 %systemd_preun %{init_script_1}.service
-%else
-if [ "$1" = "0" ]; then
-	# Totally removing the service
-	/etc/init.d/%{init_script_1} stop
-	/sbin/chkconfig --del %{init_script_1}
-fi
-%endif
 
 %postun
-%if 0%{?el7}
 %systemd_postun_with_restart %{init_script_1}.service
-%else
-if [ "$1" != "0" ]; then
-	# An RPM upgrade
-	/etc/init.d/%{init_script_1} restart
-fi
-%endif
 
 %files
 %defattr(0644,perfsonar,perfsonar,0755)
@@ -150,11 +108,7 @@ fi
 %config %{config_base}/*
 %attr(0755,perfsonar,perfsonar) %{install_base}/bin/*
 %{install_base}/lib/*
-%if 0%{?el7}
 %attr(0644,root,root) %{_unitdir}/%{init_script_1}.service
-%else
-%attr(0755,perfsonar,perfsonar) /etc/init.d/*
-%endif
 
 %changelog
 * Thu Jun 19 2014 andy@es.net 3.4-1
